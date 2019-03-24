@@ -1,6 +1,6 @@
 package model;
 
-public class Tank implements Moveable{
+public class Tank implements Moveable {
 
     private Point tankPoint;
 
@@ -10,11 +10,14 @@ public class Tank implements Moveable{
 
     private int step;
 
-    public Tank(Point currentPoint, Directions tankDirection, int health, int step) {
+    private int tankSize;
+
+    public Tank(Point currentPoint, Directions tankDirection, int health, int step, int tankSize) {
         this.tankPoint = currentPoint;
         this.tankDirection = tankDirection;
         this.tankHealth = health;
         this.step = step;
+        this.tankSize = tankSize;
     }
 
     public Point getTankPoint() {
