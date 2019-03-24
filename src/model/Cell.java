@@ -6,9 +6,16 @@ public class Cell implements Damageable {
 
     private int health;
 
+    private final int DEFAULT_CELL_HEALTH = 3;
+
     public Cell(FieldCellType cellType, int health) {
         this.cellType = cellType;
         this.health = health;
+    }
+
+    Cell(FieldCellType cellType) {
+        this.cellType = cellType;
+        health = DEFAULT_CELL_HEALTH;
     }
 
     public FieldCellType getCellType() {
