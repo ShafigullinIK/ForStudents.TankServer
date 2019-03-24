@@ -2,5 +2,5 @@ package model;
 
 public interface Moveable {
 
-    void move();
+    void move(Field field);
 }
