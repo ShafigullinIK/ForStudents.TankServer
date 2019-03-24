@@ -1,6 +1,6 @@
 package model;
 
-public class Bullet implements Moveable{
+public class Bullet implements Moveable {
 
     private Point bulletPoint;
 
@@ -45,32 +45,54 @@ public class Bullet implements Moveable{
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
-                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
                     bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
+                } else {
+                    bulletFinish(x, y, field);
                 }
                 break;
             case UP:
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
-                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() - step);
+                } else {
+                    bulletFinish(x, y, field);
                 }
                 break;
             case RIGHT:
                 x = (currentX + step) / sizeCell;
                 y = (currentY) / sizeCell;
-                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
                     bulletPoint = new Point(bulletPoint.getX() + step, bulletPoint.getY());
+                } else {
+                    bulletFinish(x, y, field);
                 }
                 break;
             case DOWN:
                 x = (currentX) / sizeCell;
                 y = (currentY + step) / sizeCell;
-                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() + step);
+                } else {
+                    bulletFinish(x, y, field);
                 }
                 break;
         }
+    }
+
+    private void bulletFinish(int x, int y, Field field) {
+        Cell[][] cells = field.getField();
+        switch (cells[x][y].getCellType()) {
+            case BREAKABLE_WALL:
+                cells[x][y].damage();
+                break;
+            case WATER:
+                break;
+            case UNBREAKABLE_WALL:
+                bulletPoint = new Point(-100, -100);
+        }
+
     }
 
 
