@@ -34,19 +34,41 @@ public class Bullet implements Moveable{
     }
 
     @Override
-    public void move() {
+    public void move(Field field) {
+        int sizeCell = field.getSizeCell();
+        int sizeX = field.getSizeX();
+        int sizeY = field.getSizeY();
+        Cell[][] cells = field.getField();
+        int currentX = bulletPoint.getX();
+        int currentY = bulletPoint.getY();
         switch (bulletDirection) {
             case LEFT:
-                bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
+                int x = (currentX - step) / sizeCell;
+                int y = (currentY) / sizeCell;
+                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                    bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
+                }
                 break;
             case UP:
-                bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() - step);
+                x = (currentX) / sizeCell;
+                y = (currentY - step) / sizeCell;
+                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                    bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() - step);
+                }
                 break;
             case RIGHT:
-                bulletPoint = new Point(bulletPoint.getX() + step, bulletPoint.getY());
+                x = (currentX + step) / sizeCell;
+                y = (currentY) / sizeCell;
+                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                    bulletPoint = new Point(bulletPoint.getX() + step, bulletPoint.getY());
+                }
                 break;
             case DOWN:
-                bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() + step);
+                x = (currentX) / sizeCell;
+                y = (currentY + step) / sizeCell;
+                if(cells[x][y].getCellType() == FieldCellType.GRASS){
+                    bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() + step);
+                }
                 break;
         }
     }
