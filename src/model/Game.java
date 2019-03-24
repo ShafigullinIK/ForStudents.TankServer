@@ -25,7 +25,7 @@ public class Game {
     public void removeInactiveBullets(){
         ArrayList<Bullet> temp = new ArrayList<>(bullets.size());
         for (Bullet bullet: bullets) {
-            if(bullet.getBulletPoint().getX() > 0 && bullet.getBulletPoint().getY() > 0){
+            if(bullet.isBulletStatus()){
                 temp.add(bullet);
             }
         }
