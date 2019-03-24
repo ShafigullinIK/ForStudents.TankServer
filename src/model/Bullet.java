@@ -1,6 +1,6 @@
 package model;
 
-public class Bullet {
+public class Bullet implements Moveable{
 
     private Point bulletPoint;
 
@@ -33,7 +33,8 @@ public class Bullet {
         return step;
     }
 
-    private void move() {
+    @Override
+    public void move() {
         switch (bulletDirection) {
             case LEFT:
                 bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
