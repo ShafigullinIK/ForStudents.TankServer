@@ -4,6 +4,8 @@ public class Bullet implements Moveable {
 
     private Point bulletPoint;
 
+    private boolean bulletStatus = true;
+
     private Directions bulletDirection;
 
     private Tank owner;
@@ -33,8 +35,13 @@ public class Bullet implements Moveable {
         return step;
     }
 
+    public boolean isBulletStatus() {
+        return bulletStatus;
+    }
+
     @Override
     public void move(Field field) {
+        if (!bulletStatus) return;
         int sizeCell = field.getSizeCell();
         int sizeX = field.getSizeX();
         int sizeY = field.getSizeY();
@@ -90,7 +97,7 @@ public class Bullet implements Moveable {
             case WATER:
                 break;
             case UNBREAKABLE_WALL:
-                bulletPoint = new Point(-100, -100);
+                bulletStatus = false;
         }
 
     }
