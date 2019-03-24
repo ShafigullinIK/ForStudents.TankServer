@@ -1,40 +1,69 @@
 package model;
 
-public class Tank {
+public class Tank implements Moveable{
 
-    private Point currentPoint;
+    private Point tankPoint;
 
-    private Directions currentDirection;
+    private Directions tankDirection;
 
-    private int health;
+    private int tankHealth;
 
-    public Tank(Point currentPoint, Directions currentDirection, int health) {
-        this.currentPoint = currentPoint;
-        this.currentDirection = currentDirection;
-        this.health = health;
+    private int step;
+
+    public Tank(Point currentPoint, Directions tankDirection, int health, int step) {
+        this.tankPoint = currentPoint;
+        this.tankDirection = tankDirection;
+        this.tankHealth = health;
+        this.step = step;
     }
 
-    public Point getCurrentPoint() {
-        return currentPoint;
+    public Point getTankPoint() {
+        return tankPoint;
     }
 
-    public Directions getCurrentDirection() {
-        return currentDirection;
+    public Directions getTankDirection() {
+        return tankDirection;
     }
 
-    public int getHealth() {
-        return health;
+    public int getTankHealth() {
+        return tankHealth;
     }
 
-    public void setCurrentPoint(Point currentPoint) {
-        this.currentPoint = currentPoint;
+    public void setTankPoint(Point tankPoint) {
+        this.tankPoint = tankPoint;
     }
 
-    public void setCurrentDirection(Directions currentDirection) {
-        this.currentDirection = currentDirection;
+    public void setTankDirection(Directions tankDirection) {
+        this.tankDirection = tankDirection;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setTankHealth(int tankHealth) {
+        this.tankHealth = tankHealth;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
+    @Override
+    public void move() {
+        switch (tankDirection){
+            case LEFT:
+                tankPoint = new Point(tankPoint.getX() - step, tankPoint.getY());
+                break;
+            case UP:
+                tankPoint = new Point(tankPoint.getX(), tankPoint.getY() - step);
+                break;
+            case RIGHT:
+                tankPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
+                break;
+            case DOWN:
+                tankPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
+                break;
+        }
     }
 }
