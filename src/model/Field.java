@@ -7,12 +7,19 @@ public class Field {
 
     private final Cell[][] field;
 
+    private final int sizeCell;
 
-    public Field(int sizeX, int sizeY, String sourceFileName) {
+
+    public Field(int sizeX, int sizeY, String sourceFileName, int sizeCell) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         field = new Cell[sizeX][sizeY];
+        this.sizeCell = sizeCell;
         init(sourceFileName);
+    }
+
+    public int getSizeCell() {
+        return sizeCell;
     }
 
     private void init(String sourceFileName){
