@@ -3,7 +3,7 @@ package controller;
 import model.Bullet;
 import java.util.ArrayList;
 
-public class bulletController {
+public class BulletController {
 
     private ArrayList<Bullet> bullets = new ArrayList<>();
 
