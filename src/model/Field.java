@@ -22,6 +22,18 @@ public class Field {
         return sizeCell;
     }
 
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
+    public Cell[][] getField() {
+        return field;
+    }
+
     private void init(String sourceFileName){
         if(sourceFileName == null){
             initDefaultField();
