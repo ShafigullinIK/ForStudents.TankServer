@@ -53,19 +53,41 @@ public class Tank implements Moveable {
     }
 
     @Override
-    public void move() {
-        switch (tankDirection){
+    public void move(Field field) {
+        int sizeCell = field.getSizeCell();
+        int sizeX = field.getSizeX();
+        int sizeY = field.getSizeY();
+        Cell[][] cells = field.getField();
+        int currentX = tankPoint.getX();
+        int currentY = tankPoint.getY();
+        switch (tankDirection) {
             case LEFT:
-                tankPoint = new Point(tankPoint.getX() - step, tankPoint.getY());
+                int x = (currentX - step) / sizeCell;
+                int y = (currentY) / sizeCell;
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                    tankPoint = new Point(tankPoint.getX() - step, tankPoint.getY());
+                }
                 break;
             case UP:
-                tankPoint = new Point(tankPoint.getX(), tankPoint.getY() - step);
+                x = (currentX) / sizeCell;
+                y = (currentY - step) / sizeCell;
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                    tankPoint = new Point(tankPoint.getX(), tankPoint.getY() - step);
+                }
                 break;
             case RIGHT:
-                tankPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
+                x = (currentX + step) / sizeCell;
+                y = (currentY) / sizeCell;
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                    tankPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
+                }
                 break;
             case DOWN:
-                tankPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
+                x = (currentX) / sizeCell;
+                y = (currentY + step) / sizeCell;
+                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                    tankPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
+                }
                 break;
         }
     }
