@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JFrameView extends JFrame {
+public class JFrameView extends JFrame implements Runnable {
 
 
     private static final int cellSize = 50;
@@ -31,7 +31,6 @@ public class JFrameView extends JFrame {
     private Map<Directions, BufferedImage> tankDirectionImages = new HashMap<>();
 
 
-
     private Graphics screenGraphics;
 
     public JFrameView(Game game) {
@@ -43,13 +42,13 @@ public class JFrameView extends JFrame {
         this.screenGraphics = this.getGraphics();
         addKeyListeners();
         drawAll();
-
+        new Thread(this).start();
     }
 
 
     private void initWindow() {
-        int windowX = field.getSizeX()*field.getSizeCell();
-        int windowY = field.getSizeY()*field.getSizeCell();
+        int windowX = field.getSizeX() * field.getSizeCell();
+        int windowY = field.getSizeY() * field.getSizeCell();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(100, 100, windowX, windowY + upOtstup);
         this.setResizable(false);
@@ -57,7 +56,7 @@ public class JFrameView extends JFrame {
     }
 
     private void initImages() {
-        screen = new BufferedImage(this.getWidth(), this.getHeight()-upOtstup, BufferedImage.TYPE_3BYTE_BGR);
+        screen = new BufferedImage(this.getWidth(), this.getHeight() - upOtstup, BufferedImage.TYPE_3BYTE_BGR);
         try {
             BufferedImage tmp = ImageIO.read(new File("images\\breakable_wall.png"));
             wallImageMap.put(FieldCellType.BREAKABLE_WALL, tmp);
@@ -137,34 +136,30 @@ public class JFrameView extends JFrame {
                 break;
             case LEFT:
                 BufferedImage t_l = tankDirectionImages.get(Directions.LEFT);
-                imageGraphics.drawImage(t_l, x , y , cellSize, cellSize, null);
+                imageGraphics.drawImage(t_l, x, y, cellSize, cellSize, null);
                 break;
             case UP:
                 BufferedImage t_u = tankDirectionImages.get(Directions.UP);
                 imageGraphics.drawImage(t_u, x, y, cellSize, cellSize, null);
                 break;
             case RIGHT:
-                BufferedImage t_r = tankDirectionImages.get(Directions.DOWN);
+                BufferedImage t_r = tankDirectionImages.get(Directions.RIGHT);
                 imageGraphics.drawImage(t_r, x, y, cellSize, cellSize, null);
                 break;
         }
     }
 
-
-}
-
-class Animator implements Runnable {
-
-
     @Override
     public void run() {
-        while(true){
-        //    drawAll();
-            try{
+        while (true) {
+                drawAll();
+            try {
                 Thread.sleep(30);
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
 
             }
         }
     }
+
 }
+
