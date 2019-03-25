@@ -43,7 +43,6 @@ public class PlayerController extends KeyAdapter {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
                 move(Directions.LEFT);
-                System.out.println("A");
                 break;
             case KeyEvent.VK_D:
                 move(Directions.RIGHT);
@@ -55,5 +54,6 @@ public class PlayerController extends KeyAdapter {
                 move(Directions.UP);
                 break;
         }
+        System.out.println(tank);
     }
 }
