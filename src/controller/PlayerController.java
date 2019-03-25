@@ -53,6 +53,9 @@ public class PlayerController extends KeyAdapter {
             case KeyEvent.VK_W:
                 move(Directions.UP);
                 break;
+            case KeyEvent.VK_SPACE:
+                tank.makeShot();
+                break;
         }
         System.out.println(tank);
     }
