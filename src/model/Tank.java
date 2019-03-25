@@ -126,6 +126,9 @@ public class Tank implements Moveable, Damageable {
     @Override
     public void damage() {
         tankHealth--;
+        if(tankHealth == 0) {
+            System.out.println(tankName + " loose!"); //todo: Перенеси это в контроллеры;
+        }
     }
 
     @Override
