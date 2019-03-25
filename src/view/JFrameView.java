@@ -34,6 +34,8 @@ public class JFrameView extends JFrame {
     private Map<FieldCellType, BufferedImage> wallImageMap = new HashMap<>();
     private Map<Directions, BufferedImage> tankDirectionImages = new HashMap<>();
 
+    private Graphics screenGraphics;
+
     public JFrameView(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -41,6 +43,7 @@ public class JFrameView extends JFrame {
         initWindow();
         initGame();
         initImages();
+        this.screenGraphics = this.getGraphics();
         addKeyListeners();
     }
 
@@ -94,6 +97,7 @@ public class JFrameView extends JFrame {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_SPACE:
                         drawAll();
+                        System.out.println("Нажат пробел");
                         break;
                 }
             }
@@ -110,6 +114,7 @@ public class JFrameView extends JFrame {
         Cell[][] cells = field.getField();
         drawField(imageGraphics, cells);
         drawTanks(imageGraphics);
+        screenGraphics.drawImage(screen, 0, 0, null);
 
     }
 
