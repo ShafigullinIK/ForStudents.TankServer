@@ -5,7 +5,10 @@ import model.Field;
 import model.Player;
 import model.Tank;
 
-public class PlayerController {
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class PlayerController extends KeyAdapter {
 
     private final Player player;
     private final Tank tank;
@@ -17,8 +20,8 @@ public class PlayerController {
         tank = player.getTank();
     }
 
-    public void move(Directions direction){
-        switch (direction){
+    public void move(Directions direction) {
+        switch (direction) {
             case UP:
                 tank.setTankDirection(Directions.UP);
                 break;
@@ -33,5 +36,23 @@ public class PlayerController {
                 break;
         }
         tank.move(field);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                move(Directions.LEFT);
+                break;
+            case KeyEvent.VK_D:
+                move(Directions.RIGHT);
+                break;
+            case KeyEvent.VK_S:
+                move(Directions.DOWN);
+                break;
+            case KeyEvent.VK_W:
+                move(Directions.UP);
+                break;
+        }
     }
 }
