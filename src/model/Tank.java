@@ -52,6 +52,25 @@ public class Tank implements Moveable {
         this.step = step;
     }
 
+    public Bullet makeShot() {
+        Point p = null;
+        int halfTankSize = tankSize / 2;
+        switch (tankDirection) {
+            case LEFT:
+                p = new Point(tankPoint.getX(), tankPoint.getY() + halfTankSize);
+                break;
+            case UP:
+                p = new Point(tankPoint.getX() + halfTankSize, tankPoint.getY());
+                break;
+            case RIGHT:
+                p = new Point(tankPoint.getX() + tankSize, tankPoint.getY() + halfTankSize);
+                break;
+            case DOWN:
+                p = new Point(tankPoint.getX() + halfTankSize, tankPoint.getY() + tankSize);
+        }
+        return new Bullet(p, tankDirection, this, step);
+    }
+
     @Override
     public void move(Field field) {
         int sizeCell = field.getSizeCell();
