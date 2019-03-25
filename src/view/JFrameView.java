@@ -1,5 +1,6 @@
 package view;
 
+import controller.BulletController;
 import controller.PlayerController;
 import model.*;
 
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,7 @@ public class JFrameView extends JFrame implements Runnable {
 
 
     private Graphics screenGraphics;
+    private BulletController bulletController = new BulletController();
 
     public JFrameView(Game game) {
         this.player1 = game.getPlayer1();
@@ -82,7 +85,7 @@ public class JFrameView extends JFrame implements Runnable {
     }
 
     private void addKeyListeners() {
-        PlayerController playerController = new PlayerController(player1, field);
+        PlayerController playerController = new PlayerController(player1, field, bulletController);
         this.addKeyListener(playerController);
     }
 
@@ -91,6 +94,7 @@ public class JFrameView extends JFrame implements Runnable {
         Cell[][] cells = field.getField();
         drawField(imageGraphics, cells);
         drawTanks(imageGraphics);
+        drawBullets(imageGraphics);
         screenGraphics.drawImage(screen, 0, upOtstup, null);
 
     }
@@ -116,6 +120,15 @@ public class JFrameView extends JFrame implements Runnable {
                         imageGraphics.drawImage(background, i * cellSize, j * cellSize, cellSize, cellSize, null);
                 }
             }
+        }
+    }
+
+    private void drawBullets(Graphics imageGraphics){
+        ArrayList<Bullet> bullets = bulletController.getBullets();
+        for (Bullet b: bullets) {
+            int x = b.getBulletPoint().getX();
+            int y = b.getBulletPoint().getY();
+            imageGraphics.fillOval(x,y,5,5);
         }
     }
 
