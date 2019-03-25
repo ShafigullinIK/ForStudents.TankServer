@@ -52,7 +52,8 @@ public class Bullet implements Runnable {
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
+                        cells[x][y].getCellType() == FieldCellType.WATER) {
                     bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -61,7 +62,8 @@ public class Bullet implements Runnable {
             case UP:
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
+                        cells[x][y].getCellType() == FieldCellType.WATER) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() - step);
                 } else {
                     bulletFinish(x, y, field);
@@ -70,7 +72,8 @@ public class Bullet implements Runnable {
             case RIGHT:
                 x = (currentX + step) / sizeCell;
                 y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
+                        cells[x][y].getCellType() == FieldCellType.WATER) {
                     bulletPoint = new Point(bulletPoint.getX() + step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -79,7 +82,8 @@ public class Bullet implements Runnable {
             case DOWN:
                 x = (currentX) / sizeCell;
                 y = (currentY + step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
+                        cells[x][y].getCellType() == FieldCellType.WATER) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() + step);
                 } else {
                     bulletFinish(x, y, field);
@@ -107,8 +111,6 @@ public class Bullet implements Runnable {
             case BREAKABLE_WALL:
                 cells[x][y].damage();
                 bulletStatus = false;
-                break;
-            case WATER:
                 break;
             case UNBREAKABLE_WALL:
                 bulletStatus = false;
