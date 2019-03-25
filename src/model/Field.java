@@ -18,6 +18,10 @@ public class Field {
         init(sourceFileName);
     }
 
+    public Field(int sizeX, int sizeY){
+        this(sizeX, sizeY, null, 50);
+    }
+
     public int getSizeCell() {
         return sizeCell;
     }
