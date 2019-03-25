@@ -50,7 +50,16 @@ public class Field {
                 field[i][j] = new Cell(FieldCellType.BACKGROUND);
             }
         }
-
+        field[10][10] = new Cell(FieldCellType.BREAKABLE_WALL);
+        field[9][10] = new Cell(FieldCellType.BREAKABLE_WALL);
+        field[8][10] = new Cell(FieldCellType.BREAKABLE_WALL);
+        field[7][10] = new Cell(FieldCellType.BREAKABLE_WALL);
+        field[6][10] = new Cell(FieldCellType.BREAKABLE_WALL);
+        field[10][8] = new Cell(FieldCellType.WATER);
+        field[9][8] = new Cell(FieldCellType.WATER);
+        field[8][8] = new Cell(FieldCellType.WATER);
+        field[7][8] = new Cell(FieldCellType.WATER);
+        field[6][8] = new Cell(FieldCellType.WATER);
         for (int i = 0; i < sizeX; i++) {
             field[i][0] = new Cell(FieldCellType.UNBREAKABLE_WALL);
             field[i][sizeY-1] = new Cell(FieldCellType.UNBREAKABLE_WALL);
