@@ -1,6 +1,6 @@
 package model;
 
-public class Tank implements Moveable {
+public class Tank implements Moveable, Damageable {
 
     private Point tankPoint;
 
@@ -109,5 +109,10 @@ public class Tank implements Moveable {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void damage() {
+        tankHealth--;
     }
 }
