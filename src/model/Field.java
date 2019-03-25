@@ -46,6 +46,12 @@ public class Field {
 
     private void initDefaultField() {
         for (int i = 0; i < sizeX; i++) {
+            for (int j = 0; j < sizeY; j++) {
+                field[i][j] = new Cell(FieldCellType.GRASS);
+            }
+        }
+
+        for (int i = 0; i < sizeX; i++) {
             field[i][0] = new Cell(FieldCellType.UNBREAKABLE_WALL);
             field[i][sizeY-1] = new Cell(FieldCellType.UNBREAKABLE_WALL);
         }
