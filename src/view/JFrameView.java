@@ -1,13 +1,12 @@
 package view;
 
+import controller.PlayerController;
 import model.*;
 
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,8 +15,7 @@ import java.util.Map;
 
 public class JFrameView extends JFrame {
 
-    private static final int DEFAULT_WINDOW_X_SIZE = 600;
-    private static final int DEFAULT_WINDOW_Y_SIZE = 800;
+
     private static final int cellSize = 50;
     private static final int upOtstup = 35;
 
@@ -26,8 +24,6 @@ public class JFrameView extends JFrame {
     private Player player2;
 
     private Field field;
-
-    private Game game;
 
     private BufferedImage screen;
 
@@ -41,24 +37,27 @@ public class JFrameView extends JFrame {
     public JFrameView(Game game) {
         this.player1 = game.getPlayer1();
         this.player2 = game.getPlayer2();
-        this.field = new Field(DEFAULT_WINDOW_X_SIZE / cellSize, DEFAULT_WINDOW_Y_SIZE / cellSize);
+        this.field = game.getField();
         initWindow();
         initImages();
         this.screenGraphics = this.getGraphics();
         addKeyListeners();
         drawAll();
+
     }
 
 
     private void initWindow() {
+        int windowX = field.getSizeX()*field.getSizeCell();
+        int windowY = field.getSizeY()*field.getSizeCell();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(100, 100, DEFAULT_WINDOW_X_SIZE, DEFAULT_WINDOW_Y_SIZE + upOtstup);
+        this.setBounds(100, 100, windowX, windowY + upOtstup);
         this.setResizable(false);
         this.setVisible(true);
     }
 
     private void initImages() {
-        screen = new BufferedImage(DEFAULT_WINDOW_X_SIZE, DEFAULT_WINDOW_Y_SIZE, BufferedImage.TYPE_3BYTE_BGR);
+        screen = new BufferedImage(this.getWidth(), this.getHeight()-upOtstup, BufferedImage.TYPE_3BYTE_BGR);
         try {
             BufferedImage tmp = ImageIO.read(new File("images\\breakable_wall.png"));
             wallImageMap.put(FieldCellType.BREAKABLE_WALL, tmp);
@@ -84,26 +83,8 @@ public class JFrameView extends JFrame {
     }
 
     private void addKeyListeners() {
-        this.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_SPACE:
-
-                        break;
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
+        PlayerController playerController = new PlayerController(player1, field);
+        this.addKeyListener(playerController);
     }
 
     private void drawAll() {
@@ -166,6 +147,24 @@ public class JFrameView extends JFrame {
                 BufferedImage t_r = tankDirectionImages.get(Directions.DOWN);
                 imageGraphics.drawImage(t_r, x * cellSize, y * cellSize, cellSize, cellSize, null);
                 break;
+        }
+    }
+
+
+}
+
+class Animator implements Runnable {
+
+
+    @Override
+    public void run() {
+        while(true){
+        //    drawAll();
+            try{
+                Thread.sleep(30);
+            }catch (InterruptedException e){
+
+            }
         }
     }
 }

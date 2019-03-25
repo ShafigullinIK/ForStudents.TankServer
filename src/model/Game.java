@@ -22,4 +22,8 @@ public class Game {
     public Player getPlayer2() {
         return player2;
     }
+
+    public Field getField() {
+        return field;
+    }
 }

@@ -39,10 +39,11 @@ public class PlayerController extends KeyAdapter {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
                 move(Directions.LEFT);
+                System.out.println("A");
                 break;
             case KeyEvent.VK_D:
                 move(Directions.RIGHT);

@@ -10,16 +10,16 @@ public class Field {
     private final int sizeCell;
 
 
-    public Field(int sizeX, int sizeY, String sourceFileName, int sizeCell) {
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+    public Field(int windowX, int windowY, String sourceFileName, int sizeCell) {
+        this.sizeX = windowX/sizeCell;
+        this.sizeY = windowY/sizeCell;
         field = new Cell[sizeX][sizeY];
         this.sizeCell = sizeCell;
         init(sourceFileName);
     }
 
-    public Field(int sizeX, int sizeY){
-        this(sizeX, sizeY, null, 50);
+    public Field(int sizeX, int sizeY, int sizeCell){
+        this(sizeX, sizeY, null, sizeCell);
     }
 
     public int getSizeCell() {
