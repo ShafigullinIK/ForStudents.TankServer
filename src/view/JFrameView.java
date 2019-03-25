@@ -38,15 +38,15 @@ public class JFrameView extends JFrame {
 
     private Graphics screenGraphics;
 
-    public JFrameView(Player player1, Player player2) {
-        this.player1 = player1;
-        this.player2 = player2;
+    public JFrameView(Game game) {
+        this.player1 = game.getPlayer1();
+        this.player2 = game.getPlayer2();
         this.field = new Field(DEFAULT_WINDOW_X_SIZE / cellSize, DEFAULT_WINDOW_Y_SIZE / cellSize);
         initWindow();
-        initGame();
         initImages();
         this.screenGraphics = this.getGraphics();
         addKeyListeners();
+        drawAll();
     }
 
 
@@ -55,10 +55,6 @@ public class JFrameView extends JFrame {
         this.setBounds(100, 100, DEFAULT_WINDOW_X_SIZE, DEFAULT_WINDOW_Y_SIZE + upOtstup);
         this.setResizable(false);
         this.setVisible(true);
-    }
-
-    private void initGame() {
-        game = new Game(player1, player2, field);
     }
 
     private void initImages() {
@@ -98,7 +94,7 @@ public class JFrameView extends JFrame {
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_SPACE:
-                        drawAll();
+
                         break;
                 }
             }
