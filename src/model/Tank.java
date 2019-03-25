@@ -90,28 +90,28 @@ public class Tank implements Moveable, Damageable {
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     tankPoint = new Point(tankPoint.getX() - step, tankPoint.getY());
                 }
                 break;
             case UP:
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     tankPoint = new Point(tankPoint.getX(), tankPoint.getY() - step);
                 }
                 break;
             case RIGHT:
                 x = (currentX + tankSize + step) / sizeCell;
                 y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     tankPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
                 }
                 break;
             case DOWN:
                 x = (currentX) / sizeCell;
                 y = (currentY + tankSize + step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     tankPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
                 }
                 break;

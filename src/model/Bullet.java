@@ -52,7 +52,7 @@ public class Bullet implements Moveable {
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -61,7 +61,7 @@ public class Bullet implements Moveable {
             case UP:
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() - step);
                 } else {
                     bulletFinish(x, y, field);
@@ -70,7 +70,7 @@ public class Bullet implements Moveable {
             case RIGHT:
                 x = (currentX + step) / sizeCell;
                 y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     bulletPoint = new Point(bulletPoint.getX() + step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -79,7 +79,7 @@ public class Bullet implements Moveable {
             case DOWN:
                 x = (currentX) / sizeCell;
                 y = (currentY + step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.GRASS) {
+                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() + step);
                 } else {
                     bulletFinish(x, y, field);

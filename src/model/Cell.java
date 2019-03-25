@@ -39,7 +39,7 @@ public class Cell implements Damageable {
         if(FieldCellType.BREAKABLE_WALL == cellType){
             health--;
             if(health == 0){
-                cellType = FieldCellType.GRASS;
+                cellType = FieldCellType.BACKGROUND;
             }
         }
     }

@@ -47,7 +47,7 @@ public class Field {
     private void initDefaultField() {
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
-                field[i][j] = new Cell(FieldCellType.GRASS);
+                field[i][j] = new Cell(FieldCellType.BACKGROUND);
             }
         }
 
