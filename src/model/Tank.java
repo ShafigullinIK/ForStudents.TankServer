@@ -12,12 +12,18 @@ public class Tank implements Moveable, Damageable {
 
     private int tankSize;
 
+    private String tankName;
+
     public Tank(Point currentPoint, Directions tankDirection, int health, int step, int tankSize) {
         this.tankPoint = currentPoint;
         this.tankDirection = tankDirection;
         this.tankHealth = health;
         this.step = step;
         this.tankSize = tankSize;
+    }
+
+    public String getTankName() {
+        return tankName;
     }
 
     public Point getTankPoint() {
@@ -118,7 +124,8 @@ public class Tank implements Moveable, Damageable {
 
     @Override
     public String toString() {
-        return "Coord: x_"+tankPoint.getX() + " y_" + tankPoint.getY() + "|" +
+        return "TankName: " + tankName + "|" +
+                " Coord: x_"+tankPoint.getX() + " y_" + tankPoint.getY() + "|" +
                 " Direction: " + tankDirection + "|"+
                 " Health: " + tankHealth;
     }
