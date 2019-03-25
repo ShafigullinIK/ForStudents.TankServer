@@ -115,4 +115,11 @@ public class Tank implements Moveable, Damageable {
     public void damage() {
         tankHealth--;
     }
+
+    @Override
+    public String toString() {
+        return "Coord: x_"+tankPoint.getX() + " y_" + tankPoint.getY() + "|" +
+                " Direction: " + tankDirection + "|"+
+                " Health: " + tankHealth;
+    }
 }
