@@ -1,6 +1,6 @@
 package model;
 
-public class Bullet implements Moveable {
+public class Bullet implements Runnable {
 
     private Point bulletPoint;
 
@@ -11,6 +11,8 @@ public class Bullet implements Moveable {
     private Tank owner;
 
     private int step;
+
+    private Field field;
 
     public Bullet(Point bulletPoint, Directions bulletDirection, Tank owner, int step) {
         this.bulletPoint = bulletPoint;
@@ -39,9 +41,7 @@ public class Bullet implements Moveable {
         return bulletStatus;
     }
 
-    @Override
-    public void move(Field field) {
-        if (!bulletStatus) return;
+    private void move(){
         int sizeCell = field.getSizeCell();
         int sizeX = field.getSizeX();
         int sizeY = field.getSizeY();
@@ -88,6 +88,12 @@ public class Bullet implements Moveable {
         }
     }
 
+
+    public void move(Field field) { //todo: исправь это безобразие. возможно надо кинуть это всё в контроллер.
+        this.field = field;
+        new Thread(this).start();
+    }
+
     @Override
     public String toString() {
         return "Coord: x_"+bulletPoint.getX() + " y_" + bulletPoint.getY() + "|" +
@@ -110,4 +116,15 @@ public class Bullet implements Moveable {
     }
 
 
+    @Override
+    public void run() {
+        while(bulletStatus){
+            move();
+            try{
+                Thread.sleep(30);
+            } catch (InterruptedException e){
+
+            }
+        }
+    }
 }

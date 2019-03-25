@@ -20,4 +20,8 @@ public class BulletController {
         }
         bullets = temp;
     }
+
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
+    }
 }

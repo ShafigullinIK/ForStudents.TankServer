@@ -128,7 +128,7 @@ public class JFrameView extends JFrame implements Runnable {
         for (Bullet b: bullets) {
             int x = b.getBulletPoint().getX();
             int y = b.getBulletPoint().getY();
-            imageGraphics.fillOval(x,y,5,5);
+            imageGraphics.fillOval(x-3,y-3,6,6);
         }
     }
 
@@ -166,6 +166,7 @@ public class JFrameView extends JFrame implements Runnable {
     public void run() {
         while (true) {
                 drawAll();
+                bulletController.removeInactiveBullets();
             try {
                 Thread.sleep(30);
             } catch (InterruptedException e) {
