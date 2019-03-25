@@ -88,6 +88,13 @@ public class Bullet implements Moveable {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Coord: x_"+bulletPoint.getX() + " y_" + bulletPoint.getY() + "|" +
+                " Direction: " + bulletDirection + "|" +
+                " Owner: " + owner.getTankName();
+    }
+
     private void bulletFinish(int x, int y, Field field) {
         Cell[][] cells = field.getField();
         switch (cells[x][y].getCellType()) {
