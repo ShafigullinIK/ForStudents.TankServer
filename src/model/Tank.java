@@ -10,6 +10,8 @@ public class Tank implements Moveable, Damageable {
 
     private int step;
 
+
+
     private int tankSize;
 
     private String tankName;
@@ -25,6 +27,9 @@ public class Tank implements Moveable, Damageable {
 
     public String getTankName() {
         return tankName;
+    }
+    public int getTankSize() {
+        return tankSize;
     }
 
     public Point getTankPoint() {

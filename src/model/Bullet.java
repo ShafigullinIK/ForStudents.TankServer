@@ -1,6 +1,6 @@
 package model;
 
-public class Bullet implements Runnable {
+public class Bullet {
 
     private Point bulletPoint;
 
@@ -11,8 +11,6 @@ public class Bullet implements Runnable {
     private Tank owner;
 
     private int step;
-
-    private Field field;
 
     public Bullet(Point bulletPoint, Directions bulletDirection, Tank owner, int step) {
         this.bulletPoint = bulletPoint;
@@ -41,7 +39,11 @@ public class Bullet implements Runnable {
         return bulletStatus;
     }
 
-    private void move(){
+    private void move() {
+
+    }
+
+    public void move(Field field, Tank tank1, Tank tank2) {
         int sizeCell = field.getSizeCell();
         int sizeX = field.getSizeX();
         int sizeY = field.getSizeY();
@@ -86,16 +88,35 @@ public class Bullet implements Runnable {
                 }
                 break;
         }
+        checkTanks(tank1, tank2);
+
     }
 
-    public void move(Field field) { //todo: исправь это безобразие. возможно надо кинуть это всё в контроллер.
-        this.field = field;
-        new Thread(this).start();
+    private void checkTanks(Tank tank1, Tank tank2) {
+        checkTank(tank1);
+        checkTank(tank2);
+    }
+
+    private void checkTank(Tank tank) {
+        int bulletX = this.bulletPoint.getX();
+        int bulletY = this.bulletPoint.getY();
+        int tankX = tank.getTankPoint().getX();
+        int tankY = tank.getTankPoint().getY();
+        int tankSize = tank.getTankSize();
+        if (checkTankOneCoord(bulletX, tankX, tankSize) &&
+                checkTankOneCoord(bulletY, tankY, tankSize)) {
+            tank.damage();
+            this.bulletStatus = false;
+        }
+    }
+
+    private boolean checkTankOneCoord(int bullet, int tank, int tankSize) {
+        return bullet > tank && bullet < tank + tankSize;
     }
 
     @Override
     public String toString() {
-        return "Coord: x_"+bulletPoint.getX() + " y_" + bulletPoint.getY() + "|" +
+        return "Coord: x_" + bulletPoint.getX() + " y_" + bulletPoint.getY() + "|" +
                 " Direction: " + bulletDirection + "|" +
                 " Owner: " + owner.getTankName();
     }
@@ -112,24 +133,9 @@ public class Bullet implements Runnable {
         }
     }
 
-    private boolean correctCellForBullet(Cell cell){
-        if (cell.getCellType() == FieldCellType.BACKGROUND ||
-                cell.getCellType() == FieldCellType.WATER) {
-            return true;
-        }
-        return false;
+    private boolean correctCellForBullet(Cell cell) {
+        return cell.getCellType() == FieldCellType.BACKGROUND || cell.getCellType() == FieldCellType.WATER;
     }
 
 
-    @Override
-    public void run() {
-        while(bulletStatus){
-            move();
-            try{
-                Thread.sleep(30);
-            } catch (InterruptedException e){
-
-            }
-        }
-    }
 }

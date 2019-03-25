@@ -19,7 +19,7 @@ public class PlayerController extends KeyAdapter {
         this.bulletController = bulletController;
     }
 
-    public void move(Directions direction) {
+    private void move(Directions direction) {
         switch (direction) {
             case UP:
                 tank.setTankDirection(Directions.UP);
@@ -54,7 +54,6 @@ public class PlayerController extends KeyAdapter {
                 break;
             case KeyEvent.VK_SPACE:
                 Bullet b = tank.makeShot();
-                b.move(field);
                 bulletController.addBullet(b);
                 break;
         }

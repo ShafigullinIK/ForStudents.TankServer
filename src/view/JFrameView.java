@@ -29,14 +29,18 @@ public class JFrameView extends JFrame implements Runnable {
 
     private BufferedImage screen;
 
+    private final Game game;
+
     private Map<FieldCellType, BufferedImage> wallImageMap = new HashMap<>();
     private Map<Directions, BufferedImage> tankDirectionImages = new HashMap<>();
 
 
     private Graphics screenGraphics;
-    private BulletController bulletController = new BulletController();
+    private BulletController bulletController;
 
     public JFrameView(Game game) {
+        this.game = game;
+        bulletController = new BulletController(game);
         this.player1 = game.getPlayer1();
         this.player2 = game.getPlayer2();
         this.field = game.getField();
@@ -45,6 +49,7 @@ public class JFrameView extends JFrame implements Runnable {
         this.screenGraphics = this.getGraphics();
         addKeyListeners();
         drawAll();
+
         new Thread(this).start();
     }
 
