@@ -106,6 +106,7 @@ public class Bullet implements Runnable {
         switch (cells[x][y].getCellType()) {
             case BREAKABLE_WALL:
                 cells[x][y].damage();
+                bulletStatus = false;
                 break;
             case WATER:
                 break;
