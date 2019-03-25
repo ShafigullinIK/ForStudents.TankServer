@@ -52,8 +52,7 @@ public class Bullet implements Runnable {
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
-                        cells[x][y].getCellType() == FieldCellType.WATER) {
+                if (correctCellForBullet(cells[x][y])) {
                     bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -62,8 +61,7 @@ public class Bullet implements Runnable {
             case UP:
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
-                        cells[x][y].getCellType() == FieldCellType.WATER) {
+                if (correctCellForBullet(cells[x][y])) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() - step);
                 } else {
                     bulletFinish(x, y, field);
@@ -72,8 +70,7 @@ public class Bullet implements Runnable {
             case RIGHT:
                 x = (currentX + step) / sizeCell;
                 y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
-                        cells[x][y].getCellType() == FieldCellType.WATER) {
+                if (correctCellForBullet(cells[x][y])) {
                     bulletPoint = new Point(bulletPoint.getX() + step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -82,8 +79,7 @@ public class Bullet implements Runnable {
             case DOWN:
                 x = (currentX) / sizeCell;
                 y = (currentY + step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND ||
-                        cells[x][y].getCellType() == FieldCellType.WATER) {
+                if (correctCellForBullet(cells[x][y])) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() + step);
                 } else {
                     bulletFinish(x, y, field);
@@ -91,7 +87,6 @@ public class Bullet implements Runnable {
                 break;
         }
     }
-
 
     public void move(Field field) { //todo: исправь это безобразие. возможно надо кинуть это всё в контроллер.
         this.field = field;
@@ -115,7 +110,14 @@ public class Bullet implements Runnable {
             case UNBREAKABLE_WALL:
                 bulletStatus = false;
         }
+    }
 
+    private boolean correctCellForBullet(Cell cell){
+        if (cell.getCellType() == FieldCellType.BACKGROUND ||
+                cell.getCellType() == FieldCellType.WATER) {
+            return true;
+        }
+        return false;
     }
 
 
