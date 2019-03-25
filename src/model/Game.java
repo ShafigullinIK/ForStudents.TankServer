@@ -15,4 +15,11 @@ public class Game {
         this.field = field;
     }
 
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
 }
