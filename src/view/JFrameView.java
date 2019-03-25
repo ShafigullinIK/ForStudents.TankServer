@@ -16,10 +16,10 @@ import java.util.Map;
 
 public class JFrameView extends JFrame {
 
-    private static final int DEFAULT_WINDOW_X_SIZE = 400;
-    private static final int DEFAULT_WINDOW_Y_SIZE = 600;
-
+    private static final int DEFAULT_WINDOW_X_SIZE = 600;
+    private static final int DEFAULT_WINDOW_Y_SIZE = 800;
     private static final int cellSize = 50;
+    private static final int upOtstup = 35;
 
     private Player player1;
 
@@ -33,6 +33,8 @@ public class JFrameView extends JFrame {
 
     private Map<FieldCellType, BufferedImage> wallImageMap = new HashMap<>();
     private Map<Directions, BufferedImage> tankDirectionImages = new HashMap<>();
+
+
 
     private Graphics screenGraphics;
 
@@ -50,7 +52,7 @@ public class JFrameView extends JFrame {
 
     private void initWindow() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(100, 100, DEFAULT_WINDOW_X_SIZE, DEFAULT_WINDOW_Y_SIZE);
+        this.setBounds(100, 100, DEFAULT_WINDOW_X_SIZE, DEFAULT_WINDOW_Y_SIZE + upOtstup);
         this.setResizable(false);
         this.setVisible(true);
     }
@@ -97,7 +99,6 @@ public class JFrameView extends JFrame {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_SPACE:
                         drawAll();
-                        System.out.println("Нажат пробел");
                         break;
                 }
             }
@@ -114,7 +115,7 @@ public class JFrameView extends JFrame {
         Cell[][] cells = field.getField();
         drawField(imageGraphics, cells);
         drawTanks(imageGraphics);
-        screenGraphics.drawImage(screen, 0, 0, null);
+        screenGraphics.drawImage(screen, 0, upOtstup, null);
 
     }
 
