@@ -76,7 +76,7 @@ public class Tank implements Moveable {
                 }
                 break;
             case RIGHT:
-                x = (currentX + step) / sizeCell;
+                x = (currentX + tankSize + step) / sizeCell;
                 y = (currentY) / sizeCell;
                 if (cells[x][y].getCellType() == FieldCellType.GRASS) {
                     tankPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
@@ -84,7 +84,7 @@ public class Tank implements Moveable {
                 break;
             case DOWN:
                 x = (currentX) / sizeCell;
-                y = (currentY + step) / sizeCell;
+                y = (currentY + tankSize + step) / sizeCell;
                 if (cells[x][y].getCellType() == FieldCellType.GRASS) {
                     tankPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
                 }
