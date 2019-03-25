@@ -133,19 +133,19 @@ public class JFrameView extends JFrame {
         switch (tank.getTankDirection()) {
             case DOWN:
                 BufferedImage t_d = tankDirectionImages.get(Directions.DOWN);
-                imageGraphics.drawImage(t_d, x * cellSize, y * cellSize, cellSize, cellSize, null);
+                imageGraphics.drawImage(t_d, x, y, cellSize, cellSize, null);
                 break;
             case LEFT:
                 BufferedImage t_l = tankDirectionImages.get(Directions.LEFT);
-                imageGraphics.drawImage(t_l, x * cellSize, y * cellSize, cellSize, cellSize, null);
+                imageGraphics.drawImage(t_l, x , y , cellSize, cellSize, null);
                 break;
             case UP:
                 BufferedImage t_u = tankDirectionImages.get(Directions.UP);
-                imageGraphics.drawImage(t_u, x * cellSize, y * cellSize, cellSize, cellSize, null);
+                imageGraphics.drawImage(t_u, x, y, cellSize, cellSize, null);
                 break;
             case RIGHT:
                 BufferedImage t_r = tankDirectionImages.get(Directions.DOWN);
-                imageGraphics.drawImage(t_r, x * cellSize, y * cellSize, cellSize, cellSize, null);
+                imageGraphics.drawImage(t_r, x, y, cellSize, cellSize, null);
                 break;
         }
     }
