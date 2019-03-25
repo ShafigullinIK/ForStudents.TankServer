@@ -123,7 +123,7 @@ public class JFrameView extends JFrame {
         BufferedImage unbr = wallImageMap.get(FieldCellType.UNBREAKABLE_WALL);
         BufferedImage br = wallImageMap.get(FieldCellType.BREAKABLE_WALL);
         BufferedImage water = wallImageMap.get(FieldCellType.WATER);
-        BufferedImage background = wallImageMap.get(FieldCellType.WATER);
+        BufferedImage background = wallImageMap.get(FieldCellType.BACKGROUND);
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[0].length; j++) {
                 switch (cells[i][j].getCellType()) {
