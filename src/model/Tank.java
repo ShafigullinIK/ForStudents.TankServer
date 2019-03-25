@@ -14,12 +14,13 @@ public class Tank implements Moveable, Damageable {
 
     private String tankName;
 
-    public Tank(Point currentPoint, Directions tankDirection, int health, int step, int tankSize) {
+    public Tank(Point currentPoint, Directions tankDirection, int health, int step, int tankSize, String tankName) {
         this.tankPoint = currentPoint;
         this.tankDirection = tankDirection;
         this.tankHealth = health;
         this.step = step;
         this.tankSize = tankSize;
+        this.tankName = tankName;
     }
 
     public String getTankName() {
