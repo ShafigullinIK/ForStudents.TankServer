@@ -1,5 +1,7 @@
 package model;
 
+import controller.TankListener;
+
 import java.util.ArrayList;
 
 public class Tank implements Damageable {
@@ -10,9 +12,11 @@ public class Tank implements Damageable {
 
     private int tankHealth;
 
+    private boolean tankStatus = true;
+
     private int step;
 
-
+    private ArrayList<TankListener> listeners;
 
     private int tankSize;
 
@@ -44,6 +48,10 @@ public class Tank implements Damageable {
 
     public int getTankHealth() {
         return tankHealth;
+    }
+
+    public boolean isTankStatus() {
+        return tankStatus;
     }
 
     public void setTankPoint(Point tankPoint) {
@@ -130,11 +138,21 @@ public class Tank implements Damageable {
         }
     }
 
+    public void addListeners(TankListener listener){
+        listeners.add(listener);
+    }
+
+    public void callListeners(){
+        for (TankListener listener: listeners) {
+            listener.tankInactive();
+        }
+    }
     @Override
     public void damage() {
         tankHealth--;
         if(tankHealth == 0) {
-            System.out.println(tankName + " loose!"); //todo: Перенеси это в контроллеры;
+            tankStatus = false;
+            callListeners();
         }
     }
 
