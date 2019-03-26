@@ -147,10 +147,10 @@ public class JFrameView extends JFrame implements Runnable {
     }
 
     private void drawTanks(Graphics imageGraphics) {
-        Tank tank1 = player1.getTank();
-        Tank tank2 = player2.getTank();
-        drawTank(imageGraphics, tank1);
-        drawTank(imageGraphics, tank2);
+        ArrayList<Tank> tanks = tankController.getTanks();
+        for (Tank tank: tanks) {
+            drawTank(imageGraphics, tank);
+        }
     }
 
     private void drawTank(Graphics imageGraphics, Tank tank) {
