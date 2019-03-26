@@ -11,7 +11,7 @@ public class Player {
 
     private static final int DEFAULT_TANK_HEALTH = 3;
 
-    private static final int DEFAULT_TANK_STEP = 10;
+    private static final int DEFAULT_TANK_STEP = 5;
 
 
     public Player(String name, Point startPoint, int health, int step, int tankSize ) {

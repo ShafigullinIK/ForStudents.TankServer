@@ -60,6 +60,7 @@ public class Field {
         field[8][8] = new Cell(FieldCellType.WATER);
         field[7][8] = new Cell(FieldCellType.WATER);
         field[6][8] = new Cell(FieldCellType.WATER);
+        field[6][4] = new Cell(FieldCellType.WATER);
         for (int i = 0; i < sizeX; i++) {
             field[i][0] = new Cell(FieldCellType.UNBREAKABLE_WALL);
             field[i][sizeY-1] = new Cell(FieldCellType.UNBREAKABLE_WALL);

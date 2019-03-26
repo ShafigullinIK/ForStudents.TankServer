@@ -16,7 +16,7 @@ public class Tank implements Damageable {
 
     private int step;
 
-    private ArrayList<TankListener> listeners;
+    private ArrayList<TankListener> listeners = new ArrayList<>();
 
     private int tankSize;
 
@@ -102,12 +102,18 @@ public class Tank implements Damageable {
         int currentX = tankPoint.getX();
         int currentY = tankPoint.getY();
         Point newPoint;
+        Cell secondCheckCell;
         switch (tankDirection) {
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
                 newPoint = new Point(tankPoint.getX() - step, tankPoint.getY());
-                if (checkCellAndTank(cells[x][y], tanks, newPoint) ) {
+                if(currentY % sizeCell != 0 ){
+                    secondCheckCell = cells[x][y+1];
+                }else {
+                    secondCheckCell = cells[x][y];
+                }
+                if (checkCellAndTank(cells[x][y], secondCheckCell, tanks, newPoint) ) {
                     tankPoint = newPoint;
                 }
                 break;
@@ -115,7 +121,12 @@ public class Tank implements Damageable {
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
                 newPoint =  new Point(tankPoint.getX(), tankPoint.getY() - step);
-                if (checkCellAndTank(cells[x][y], tanks, newPoint)) {
+                if(currentX % sizeCell != 0 ){
+                    secondCheckCell = cells[x+1][y];
+                }else {
+                    secondCheckCell = cells[x][y];
+                }
+                if (checkCellAndTank(cells[x][y], secondCheckCell, tanks, newPoint)) {
                     tankPoint = newPoint;
                 }
                 break;
@@ -123,7 +134,12 @@ public class Tank implements Damageable {
                 x = (currentX + tankSize + step) / sizeCell;
                 y = (currentY) / sizeCell;
                 newPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
-                if (checkCellAndTank(cells[x][y], tanks, newPoint)) {
+                if(currentY % sizeCell != 0 ){
+                    secondCheckCell = cells[x][y+1];
+                }else {
+                    secondCheckCell = cells[x][y];
+                }
+                if (checkCellAndTank(cells[x][y], secondCheckCell, tanks, newPoint)) {
                     tankPoint = newPoint;
                 }
                 break;
@@ -131,7 +147,12 @@ public class Tank implements Damageable {
                 x = (currentX) / sizeCell;
                 y = (currentY + tankSize + step) / sizeCell;
                 newPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
-                if (checkCellAndTank(cells[x][y], tanks, newPoint)) {
+                if(currentX % sizeCell != 0 ){
+                    secondCheckCell = cells[x+1][y];
+                }else {
+                    secondCheckCell = cells[x][y];
+                }
+                if (checkCellAndTank(cells[x][y], secondCheckCell, tanks, newPoint)) {
                     tankPoint = newPoint;
                 }
                 break;
@@ -150,6 +171,7 @@ public class Tank implements Damageable {
     @Override
     public void damage() {
         tankHealth--;
+        System.out.println(this);
         if(tankHealth == 0) {
             tankStatus = false;
             callListeners();
@@ -163,8 +185,9 @@ public class Tank implements Damageable {
                 " Direction: " + tankDirection + "|"+
                 " Health: " + tankHealth;
     }
-    private boolean checkCellAndTank(Cell cell, ArrayList<Tank> tanks, Point newPoint){
-        if(!checkCell(cell)) return false;
+    private boolean checkCellAndTank(Cell cell1, Cell cell2, ArrayList<Tank> tanks, Point newPoint){
+        if(!checkCell(cell1)) return false;
+        if(!checkCell(cell2)) return false;
         if(!checkTanks(tanks, newPoint)) return false;
         return true;
     }
