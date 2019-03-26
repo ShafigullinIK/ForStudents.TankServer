@@ -145,6 +145,7 @@ public class JFrameView extends JFrame implements Runnable {
     }
 
     private void drawTank(Graphics imageGraphics, Tank tank) {
+        if(tank.getTankHealth() <= 0) return;
         int x = tank.getTankPoint().getX();
         int y = tank.getTankPoint().getY();
         switch (tank.getTankDirection()) {
