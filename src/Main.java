@@ -1,20 +1,17 @@
-import model.Field;
-import model.Game;
-import model.Player;
-import model.Point;
+import model.*;
 import view.JFrameView;
 
 public class Main {
-    private static final int DEFAULT_WINDOW_X_SIZE = 600;
-    private static final int DEFAULT_WINDOW_Y_SIZE = 800;
-    private static final int cellSize = 50;
+    private static final int DEFAULT_WINDOW_X_SIZE = Constants.CELL_SIZE *Constants.X_CELL_COUNT;
+    private static final int DEFAULT_WINDOW_Y_SIZE = Constants.CELL_SIZE *Constants.Y_CELL_COUNT;
+
 
     public static void main(String[] args) {
-        Player player1 = new Player("Vasya", new Point(100,150));
-        Player player2 = new Player("Petya", new Point(200,150));
-        Field field = new Field(DEFAULT_WINDOW_X_SIZE, DEFAULT_WINDOW_Y_SIZE , cellSize);
+        Player player1 = new Player("Vasya", new Point(Constants.CELL_SIZE,Constants.CELL_SIZE));
+        Player player2 = new Player("Petya", new Point(Constants.CELL_SIZE *13,Constants.CELL_SIZE *13));
+        Field field = new Field(DEFAULT_WINDOW_X_SIZE, DEFAULT_WINDOW_Y_SIZE, "field_files\\Field.txt", Constants.CELL_SIZE);
         Game game = new Game(player1, player2, field);
-        JFrameView view = new JFrameView(game);
+        JFrameView view = new JFrameView(game, Constants.CELL_SIZE);
     }
 
 }

@@ -212,7 +212,7 @@ public class Tank implements Damageable {
         int thisX = newPoint.getX();
         int thisY = newPoint.getY();
         //if(tankX == thisX && tankY == thisY) return true;
-        if(Math.abs(tankX - thisX) <= tankSize && Math.abs(tankY - thisY) <= tankSize) return false;
+        if(Math.abs(tankX - thisX) < tankSize && Math.abs(tankY - thisY) < tankSize) return false;
         return true;
     }
 }

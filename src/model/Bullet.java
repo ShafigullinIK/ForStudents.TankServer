@@ -83,7 +83,7 @@ public class Bullet {
             case DOWN:
                 x = (currentX) / sizeCell;
                 y = (currentY + step) / sizeCell;
-                if (correctCellForBullet(cells[x][y])) {
+                if (checkCellAndTanks(cells[x][y], tanks)) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() + step);
                 } else {
                     bulletFinish(x, y, field);

@@ -7,11 +7,11 @@ public class Player {
 
     private final Tank tank;
 
-    private static final int DEFAULT_TANK_SIZE = 50;
+    private static final int DEFAULT_TANK_SIZE = Constants.CELL_SIZE;
 
-    private static final int DEFAULT_TANK_HEALTH = 3;
+    private static final int DEFAULT_TANK_HEALTH = Constants.TANK_HEALTH;
 
-    private static final int DEFAULT_TANK_STEP = 5;
+    private static final int DEFAULT_TANK_STEP = Constants.STEP;
 
 
     public Player(String name, Point startPoint, int health, int step, int tankSize ) {

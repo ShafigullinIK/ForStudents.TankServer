@@ -19,7 +19,7 @@ import java.util.Map;
 public class JFrameView extends JFrame implements Runnable {
 
 
-    private static final int cellSize = 50;
+    private final int cellSize;
     private static final int upOtstup = 35;
 
     private Player player1;
@@ -40,8 +40,9 @@ public class JFrameView extends JFrame implements Runnable {
     private TankController tankController;
     private BulletController bulletController;
 
-    public JFrameView(Game game) {
+    public JFrameView(Game game, int cellSize) {
         this.game = game;
+        this.cellSize = cellSize;
         this.player1 = game.getPlayer1();
         this.player2 = game.getPlayer2();
         this.field = game.getField();
