@@ -20,6 +20,9 @@ public class PlayerController extends KeyAdapter {
     }
 
     private void move(Directions direction) {
+        if(tank.getTankHealth() <= 0){
+            return;
+        }
         switch (direction) {
             case UP:
                 tank.setTankDirection(Directions.UP);
