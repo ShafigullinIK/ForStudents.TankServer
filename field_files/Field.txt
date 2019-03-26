@@ -1,0 +1,15 @@
+U U U U U U U U U U U U U U U
+U _ _ _ _ _ _ U B B B B _ _ U
+U B B B B B _ U _ U _ U U _ U
+U _ _ _ _ _ _ U _ U _ _ _ _ U
+U _ U U B U U U _ U _ U _ W U
+U _ U _ B _ _ _ B _ _ U B U U
+U W U _ U _ U U U U _ U B B U
+U W W _ U _ U _ _ _ _ _ _ _ U
+U _ _ B B W U B B B U U U U U
+U _ U U U U U _ U _ _ _ U B U
+U _ _ _ _ _ _ _ _ _ U B B B U
+U U B U U U U U U _ U _ U _ U
+U _ B U _ _ _ U _ _ _ _ U _ U
+U _ B _ _ U _ _ _ U _ _ U _ U
+U U U U U U U U U U U U U U U
