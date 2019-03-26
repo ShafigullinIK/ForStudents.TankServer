@@ -131,7 +131,7 @@ public class Tank implements Damageable {
                 }
                 break;
             case RIGHT:
-                x = (currentX + tankSize + step) / sizeCell;
+                x = (currentX + tankSize + step-1) / sizeCell;
                 y = (currentY) / sizeCell;
                 newPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
                 if(currentY % sizeCell != 0 ){
@@ -145,7 +145,7 @@ public class Tank implements Damageable {
                 break;
             case DOWN:
                 x = (currentX) / sizeCell;
-                y = (currentY + tankSize + step) / sizeCell;
+                y = (currentY + tankSize + step-1) / sizeCell;
                 newPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
                 if(currentX % sizeCell != 0 ){
                     secondCheckCell = cells[x+1][y];
