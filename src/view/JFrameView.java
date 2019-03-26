@@ -1,5 +1,6 @@
 package view;
 
+import controller.AnotherPlayerController;
 import controller.BulletController;
 import controller.PlayerController;
 import controller.TankController;
@@ -94,7 +95,9 @@ public class JFrameView extends JFrame implements Runnable {
 
     private void addKeyListeners() {
         PlayerController playerController = new PlayerController(player1, field, bulletController, tankController);
+        AnotherPlayerController anotherPlayerController = new AnotherPlayerController(player2, field, bulletController, tankController);
         this.addKeyListener(playerController);
+        this.addKeyListener(anotherPlayerController);
     }
 
     private void initControllers(){

@@ -6,7 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-public class PlayerController extends KeyAdapter {
+public class AnotherPlayerController extends KeyAdapter {
 
     private final Player player;
     private final Tank tank;
@@ -14,7 +14,7 @@ public class PlayerController extends KeyAdapter {
     private final BulletController bulletController;
     private final TankController tankController;
 
-    public PlayerController(Player player, Field field, BulletController bulletController, TankController tankController) {
+    public AnotherPlayerController(Player player, Field field, BulletController bulletController, TankController tankController) {
         this.player = player;
         this.field = field;
         tank = player.getTank();
@@ -48,19 +48,19 @@ public class PlayerController extends KeyAdapter {
             return;
         }
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
                 move(Directions.LEFT);
                 break;
-            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
                 move(Directions.RIGHT);
                 break;
-            case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:
                 move(Directions.DOWN);
                 break;
-            case KeyEvent.VK_W:
+            case KeyEvent.VK_UP:
                 move(Directions.UP);
                 break;
-            case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_CONTROL:
                 Bullet b = tank.makeShot();
                 bulletController.addBullet(b);
                 break;

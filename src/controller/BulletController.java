@@ -7,17 +7,20 @@ import model.Tank;
 
 import java.util.ArrayList;
 
-public class BulletController implements Runnable {
+public class BulletController implements Runnable, TankListener {
 
     private final Game game;
     private final Field field;
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private ArrayList<Tank> tanks;
+    private final TankController tankController;
 
     public BulletController(Game game, TankController tankController) {
         this.game = game;
         field = game.getField();
         tanks = tankController.getTanks();
+        this.tankController = tankController;
+        startListenTanks();
         new Thread(this).start();
     }
 
@@ -59,5 +62,16 @@ public class BulletController implements Runnable {
             }
         }
 
+    }
+
+    private void startListenTanks(){
+        for (Tank tank: tanks) {
+            tank.addListeners(this);
+        }
+    }
+
+    @Override
+    public void tankInactive() {
+        tanks = tankController.getTanks();
     }
 }
