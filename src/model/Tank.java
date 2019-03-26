@@ -1,6 +1,8 @@
 package model;
 
-public class Tank implements Moveable, Damageable {
+import java.util.ArrayList;
+
+public class Tank implements Damageable {
 
     private Point tankPoint;
 
@@ -83,41 +85,46 @@ public class Tank implements Moveable, Damageable {
         return new Bullet(p, tankDirection, this, step);
     }
 
-    @Override
-    public void move(Field field) {
+
+    public void move(Field field, ArrayList<Tank> tanks) {
         int sizeCell = field.getSizeCell();
         int sizeX = field.getSizeX();
         int sizeY = field.getSizeY();
         Cell[][] cells = field.getField();
         int currentX = tankPoint.getX();
         int currentY = tankPoint.getY();
+        Point newPoint;
         switch (tankDirection) {
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
-                    tankPoint = new Point(tankPoint.getX() - step, tankPoint.getY());
+                newPoint = new Point(tankPoint.getX() - step, tankPoint.getY());
+                if (checkCellAndTank(cells[x][y], tanks, newPoint) ) {
+                    tankPoint = newPoint;
                 }
                 break;
             case UP:
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
-                    tankPoint = new Point(tankPoint.getX(), tankPoint.getY() - step);
+                newPoint =  new Point(tankPoint.getX(), tankPoint.getY() - step);
+                if (checkCellAndTank(cells[x][y], tanks, newPoint)) {
+                    tankPoint = newPoint;
                 }
                 break;
             case RIGHT:
                 x = (currentX + tankSize + step) / sizeCell;
                 y = (currentY) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
-                    tankPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
+                newPoint = new Point(tankPoint.getX() + step, tankPoint.getY());
+                if (checkCellAndTank(cells[x][y], tanks, newPoint)) {
+                    tankPoint = newPoint;
                 }
                 break;
             case DOWN:
                 x = (currentX) / sizeCell;
                 y = (currentY + tankSize + step) / sizeCell;
-                if (cells[x][y].getCellType() == FieldCellType.BACKGROUND) {
-                    tankPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
+                newPoint = new Point(tankPoint.getX(), tankPoint.getY() + step);
+                if (checkCellAndTank(cells[x][y], tanks, newPoint)) {
+                    tankPoint = newPoint;
                 }
                 break;
         }
@@ -137,5 +144,34 @@ public class Tank implements Moveable, Damageable {
                 " Coord: x_"+tankPoint.getX() + " y_" + tankPoint.getY() + "|" +
                 " Direction: " + tankDirection + "|"+
                 " Health: " + tankHealth;
+    }
+    private boolean checkCellAndTank(Cell cell, ArrayList<Tank> tanks, Point newPoint){
+        if(!checkCell(cell)) return false;
+        if(!checkTanks(tanks, newPoint)) return false;
+        return true;
+    }
+    private boolean checkCell(Cell cell){
+        if (cell.getCellType() == FieldCellType.BACKGROUND) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkTanks(ArrayList<Tank> tanks, Point newPoint){
+        for (Tank t: tanks) {
+            if(!checkTank(t, newPoint)) return false;
+        }
+        return true;
+    }
+
+    private boolean checkTank(Tank tank, Point newPoint) {
+        if(this.equals(tank)) return true;
+        int tankX = tank.getTankPoint().getX();
+        int tankY = tank.getTankPoint().getY();
+        int thisX = newPoint.getX();
+        int thisY = newPoint.getY();
+        //if(tankX == thisX && tankY == thisY) return true;
+        if(Math.abs(tankX - thisX) <= tankSize && Math.abs(tankY - thisY) <= tankSize) return false;
+        return true;
     }
 }

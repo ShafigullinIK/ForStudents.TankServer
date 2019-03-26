@@ -2,6 +2,7 @@ package view;
 
 import controller.BulletController;
 import controller.PlayerController;
+import controller.TankController;
 import model.*;
 
 
@@ -36,17 +37,18 @@ public class JFrameView extends JFrame implements Runnable {
 
 
     private Graphics screenGraphics;
+    private TankController tankController;
     private BulletController bulletController;
 
     public JFrameView(Game game) {
         this.game = game;
-        bulletController = new BulletController(game);
         this.player1 = game.getPlayer1();
         this.player2 = game.getPlayer2();
         this.field = game.getField();
         initWindow();
         initImages();
         this.screenGraphics = this.getGraphics();
+        initControllers();
         addKeyListeners();
         drawAll();
 
@@ -90,8 +92,15 @@ public class JFrameView extends JFrame implements Runnable {
     }
 
     private void addKeyListeners() {
-        PlayerController playerController = new PlayerController(player1, field, bulletController);
+        PlayerController playerController = new PlayerController(player1, field, bulletController, tankController);
         this.addKeyListener(playerController);
+    }
+
+    private void initControllers(){
+        tankController = new TankController();
+        tankController.addTank(player1.getTank());
+        tankController.addTank(player2.getTank());
+        bulletController = new BulletController(game, tankController);
     }
 
     private void drawAll() {

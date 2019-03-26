@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Bullet {
 
     private Point bulletPoint;
@@ -43,7 +45,7 @@ public class Bullet {
 
     }
 
-    public void move(Field field, Tank tank1, Tank tank2) {
+    public void move(Field field, ArrayList<Tank> tanks) {
         int sizeCell = field.getSizeCell();
         int sizeX = field.getSizeX();
         int sizeY = field.getSizeY();
@@ -54,7 +56,7 @@ public class Bullet {
             case LEFT:
                 int x = (currentX - step) / sizeCell;
                 int y = (currentY) / sizeCell;
-                if (correctCellForBullet(cells[x][y])) {
+                if (checkCellAndTanks(cells[x][y], tanks)) {
                     bulletPoint = new Point(bulletPoint.getX() - step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -63,7 +65,7 @@ public class Bullet {
             case UP:
                 x = (currentX) / sizeCell;
                 y = (currentY - step) / sizeCell;
-                if (correctCellForBullet(cells[x][y])) {
+                if (checkCellAndTanks(cells[x][y], tanks)) {
                     bulletPoint = new Point(bulletPoint.getX(), bulletPoint.getY() - step);
                 } else {
                     bulletFinish(x, y, field);
@@ -72,7 +74,7 @@ public class Bullet {
             case RIGHT:
                 x = (currentX + step) / sizeCell;
                 y = (currentY) / sizeCell;
-                if (correctCellForBullet(cells[x][y])) {
+                if (checkCellAndTanks(cells[x][y], tanks)) {
                     bulletPoint = new Point(bulletPoint.getX() + step, bulletPoint.getY());
                 } else {
                     bulletFinish(x, y, field);
@@ -88,16 +90,25 @@ public class Bullet {
                 }
                 break;
         }
-        checkTanks(tank1, tank2);
+
 
     }
 
-    private void checkTanks(Tank tank1, Tank tank2) {
-        checkTank(tank1);
-        checkTank(tank2);
+    private boolean checkCellAndTanks(Cell cell, ArrayList<Tank> tanks) {
+        if(!correctCellForBullet(cell)) return false;
+        if(!checkTanks(tanks)) return false;
+        return true;
     }
 
-    private void checkTank(Tank tank) {
+    private boolean checkTanks(ArrayList<Tank> tanks) {
+        for (Tank tank: tanks) {
+            if(!checkTank(tank)) return false;
+        }
+        return true;
+    }
+
+    private boolean checkTank(Tank tank) {
+        if(owner.equals(tank)) return true;
         int bulletX = this.bulletPoint.getX();
         int bulletY = this.bulletPoint.getY();
         int tankX = tank.getTankPoint().getX();
@@ -107,7 +118,9 @@ public class Bullet {
                 checkTankOneCoord(bulletY, tankY, tankSize)) {
             tank.damage();
             this.bulletStatus = false;
+            return false;
         }
+        return true;
     }
 
     private boolean checkTankOneCoord(int bullet, int tank, int tankSize) {

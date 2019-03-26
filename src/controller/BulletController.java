@@ -11,18 +11,17 @@ public class BulletController implements Runnable {
 
     private final Game game;
     private final Field field;
-    private final Tank tank1;
-    private final Tank tank2;
+    private ArrayList<Bullet> bullets = new ArrayList<>();
+    private ArrayList<Tank> tanks;
 
-    public BulletController(Game game) {
+    public BulletController(Game game, TankController tankController) {
         this.game = game;
         field = game.getField();
-        tank1 = game.getPlayer1().getTank();
-        tank2 = game.getPlayer2().getTank();
+        tanks = tankController.getTanks();
         new Thread(this).start();
     }
 
-    private ArrayList<Bullet> bullets = new ArrayList<>();
+
 
     public void addBullet(Bullet bullet){
         bullets.add(bullet);
@@ -48,7 +47,7 @@ public class BulletController implements Runnable {
         while (true){
             count++;
             for (Bullet b : bullets) {
-                b.move(field, tank1, tank2);
+                b.move(field, tanks);
             }
             if(count%10 == 0 && bullets.size() > 0) {
                 removeInactiveBullets();
