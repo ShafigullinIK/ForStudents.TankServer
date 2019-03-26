@@ -1,5 +1,7 @@
 package model;
 
+import java.io.*;
+
 public class Field {
     private final int sizeX;
 
@@ -11,14 +13,14 @@ public class Field {
 
 
     public Field(int windowX, int windowY, String sourceFileName, int sizeCell) {
-        this.sizeX = windowX/sizeCell;
-        this.sizeY = windowY/sizeCell;
+        this.sizeX = windowX / sizeCell;
+        this.sizeY = windowY / sizeCell;
         field = new Cell[sizeX][sizeY];
         this.sizeCell = sizeCell;
         init(sourceFileName);
     }
 
-    public Field(int sizeX, int sizeY, int sizeCell){
+    public Field(int sizeX, int sizeY, int sizeCell) {
         this(sizeX, sizeY, null, sizeCell);
     }
 
@@ -38,9 +40,45 @@ public class Field {
         return field;
     }
 
-    private void init(String sourceFileName){
-        if(sourceFileName == null){
+    private void init(String sourceFileName) {
+        if (sourceFileName == null) {
             initDefaultField();
+            return;
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(sourceFileName)));
+            int index = 0;
+            while (reader.ready()) {
+                String line = reader.readLine();
+                initLine(line, index);
+                index++;
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initLine(String line, int index) {
+        String[] stringCells = line.split(" ");
+        for (int i = 0; i < sizeX; i++) {
+            switch (stringCells[i]) {
+                case "U":
+                    field[i][index] = new Cell(FieldCellType.UNBREAKABLE_WALL);
+                    break;
+                case "B":
+                    field[i][index] = new Cell(FieldCellType.BREAKABLE_WALL);
+                    break;
+                case "W":
+                    field[i][index] = new Cell(FieldCellType.WATER);
+                    break;
+                case "_":
+                    field[i][index] = new Cell(FieldCellType.BACKGROUND);
+                    break;
+            }
+
         }
     }
 
@@ -63,11 +101,11 @@ public class Field {
         field[6][4] = new Cell(FieldCellType.WATER);
         for (int i = 0; i < sizeX; i++) {
             field[i][0] = new Cell(FieldCellType.UNBREAKABLE_WALL);
-            field[i][sizeY-1] = new Cell(FieldCellType.UNBREAKABLE_WALL);
+            field[i][sizeY - 1] = new Cell(FieldCellType.UNBREAKABLE_WALL);
         }
         for (int i = 0; i < sizeY; i++) {
             field[0][i] = new Cell(FieldCellType.UNBREAKABLE_WALL);
-            field[sizeX-1][i] = new Cell(FieldCellType.UNBREAKABLE_WALL);
+            field[sizeX - 1][i] = new Cell(FieldCellType.UNBREAKABLE_WALL);
         }
     }
 
