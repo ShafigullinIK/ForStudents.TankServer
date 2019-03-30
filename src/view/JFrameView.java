@@ -144,11 +144,14 @@ public class JFrameView extends JFrame implements Runnable {
 
     private void drawBullets(Graphics imageGraphics){
         ArrayList<Bullet> bullets = bulletController.getBullets();
-        for (Bullet b: bullets) {
-            int x = b.getBulletPoint().getX();
-            int y = b.getBulletPoint().getY();
-            imageGraphics.fillOval(x-3,y-3,6,6);
+        synchronized (bullets){
+            for (Bullet b: bullets) {
+                int x = b.getBulletPoint().getX();
+                int y = b.getBulletPoint().getY();
+                imageGraphics.fillOval(x-3,y-3,6,6);
+            }
         }
+
     }
 
     private void drawTanks(Graphics imageGraphics) {

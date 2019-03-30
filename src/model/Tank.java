@@ -22,6 +22,8 @@ public class Tank implements Damageable {
 
     private String tankName;
 
+    private volatile int bulletsNumber = Constants.BULLETS_NUMBER;
+
     public Tank(Point currentPoint, Directions tankDirection, int health, int step, int tankSize, String tankName) {
         this.tankPoint = currentPoint;
         this.tankDirection = tankDirection;
@@ -50,6 +52,10 @@ public class Tank implements Damageable {
         return tankHealth;
     }
 
+    public int getBulletsNumber() {
+        return bulletsNumber;
+    }
+
     public boolean isTankStatus() {
         return tankStatus;
     }
@@ -74,6 +80,13 @@ public class Tank implements Damageable {
         this.step = step;
     }
 
+    public void addBullet(){
+        if(bulletsNumber <10){
+           bulletsNumber++;
+        }
+
+    }
+
     public Bullet makeShot() {
         Point p = null;
         int halfTankSize = tankSize / 2;
@@ -90,6 +103,7 @@ public class Tank implements Damageable {
             case DOWN:
                 p = new Point(tankPoint.getX() + halfTankSize, tankPoint.getY() + tankSize);
         }
+        bulletsNumber--;
         return new Bullet(p, tankDirection, this, step);
     }
 
@@ -171,7 +185,6 @@ public class Tank implements Damageable {
     @Override
     public void damage() {
         tankHealth--;
-        System.out.println(this);
         if(tankHealth == 0) {
             tankStatus = false;
             callListeners();
@@ -183,7 +196,8 @@ public class Tank implements Damageable {
         return "TankName: " + tankName + "|" +
                 " Coord: x_"+tankPoint.getX() + " y_" + tankPoint.getY() + "|" +
                 " Direction: " + tankDirection + "|"+
-                " Health: " + tankHealth;
+                " Health: " + tankHealth + "|" +
+                " BulletsNumber: " + bulletsNumber;
     }
     private boolean checkCellAndTank(Cell cell1, Cell cell2, ArrayList<Tank> tanks, Point newPoint){
         if(!checkCell(cell1)) return false;

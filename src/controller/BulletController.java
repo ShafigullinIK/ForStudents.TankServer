@@ -49,10 +49,14 @@ public class BulletController implements Runnable, TankListener {
         int count = 0;
         while (true){
             count++;
-            for (Bullet b : bullets) {
-                b.move(field, tanks);
+            synchronized (bullets){
+                for (Bullet b : bullets) {
+                    b.move(field, tanks);
+                }
             }
-            if(count%10 == 0 && bullets.size() > 0) {
+            if(count%30 == 0) {
+                addBulets();
+                System.out.println(count);
                 removeInactiveBullets();
             }
             try{
@@ -67,6 +71,13 @@ public class BulletController implements Runnable, TankListener {
     private void startListenTanks(){
         for (Tank tank: tanks) {
             tank.addListeners(this);
+        }
+    }
+
+    private void addBulets(){
+        for (Tank t: tanks) {
+            t.addBullet();
+            System.out.println(t);
         }
     }
 

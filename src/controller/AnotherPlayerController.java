@@ -61,9 +61,11 @@ public class AnotherPlayerController extends KeyAdapter {
                 move(Directions.UP);
                 break;
             case KeyEvent.VK_CONTROL:
-                Bullet b = tank.makeShot();
-                bulletController.addBullet(b);
-                break;
+                if(tank.getBulletsNumber() > 0){
+                    Bullet b = tank.makeShot();
+                    bulletController.addBullet(b);
+                    break;
+                }
         }
         System.out.println(tank);
     }
