@@ -50,9 +50,11 @@ public class ConsoleCommandController implements Runnable {
                         move(Directions.DOWN);
                         break;
                     case "fire":
-                        Bullet b = tank.makeShot();
-                        bulletController.addBullet(b);
-                        break;
+                        if(tank.getBulletsNumber() > 0) {
+                            Bullet b = tank.makeShot();
+                            bulletController.addBullet(b);
+                            break;
+                        }
                     default : break;
                 }
             }

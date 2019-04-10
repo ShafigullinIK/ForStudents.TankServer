@@ -22,6 +22,19 @@ public class Tank implements Damageable {
 
     private String tankName;
 
+    private int bulletsNumber = Constants.BULLETS_NUMBER;
+
+    public int getBulletsNumber() {
+        return bulletsNumber;
+    }
+
+    public void addBullet(){
+        if(bulletsNumber < Constants.BULLETS_NUMBER){
+            bulletsNumber++;
+        }
+    }
+
+
     public Tank(Point currentPoint, Directions tankDirection, int health, int step, int tankSize, String tankName) {
         this.tankPoint = currentPoint;
         this.tankDirection = tankDirection;
@@ -75,6 +88,7 @@ public class Tank implements Damageable {
     }
 
     public Bullet makeShot() {
+        if(bulletsNumber > 0) bulletsNumber--;
         Point p = null;
         int halfTankSize = tankSize / 2;
         switch (tankDirection) {
