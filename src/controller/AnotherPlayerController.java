@@ -65,6 +65,6 @@ public class AnotherPlayerController extends KeyAdapter {
                 bulletController.addBullet(b);
                 break;
         }
-        System.out.println(tank);
+
     }
 }

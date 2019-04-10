@@ -23,21 +23,8 @@ public class PlayerController extends KeyAdapter {
     }
 
     private void move(Directions direction) {
+        tank.setTankDirection(direction);
 
-        switch (direction) {
-            case UP:
-                tank.setTankDirection(Directions.UP);
-                break;
-            case RIGHT:
-                tank.setTankDirection(Directions.RIGHT);
-                break;
-            case DOWN:
-                tank.setTankDirection(Directions.DOWN);
-                break;
-            case LEFT:
-                tank.setTankDirection(Directions.LEFT);
-                break;
-        }
         ArrayList<Tank> tanks = tankController.getTanks();
         tank.move(field, tanks);
     }
@@ -65,6 +52,6 @@ public class PlayerController extends KeyAdapter {
                 bulletController.addBullet(b);
                 break;
         }
-        System.out.println(tank);
+
     }
 }

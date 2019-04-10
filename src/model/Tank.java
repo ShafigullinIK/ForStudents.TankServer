@@ -171,7 +171,7 @@ public class Tank implements Damageable {
     @Override
     public void damage() {
         tankHealth--;
-        System.out.println(this);
+
         if(tankHealth == 0) {
             tankStatus = false;
             callListeners();

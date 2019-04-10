@@ -1,9 +1,6 @@
 package view;
 
-import controller.AnotherPlayerController;
-import controller.BulletController;
-import controller.PlayerController;
-import controller.TankController;
+import controller.*;
 import model.*;
 
 
@@ -22,6 +19,7 @@ public class JFrameView extends JFrame implements Runnable {
 
     private final int cellSize;
     private static final int upOtstup = 35;
+    private TCPConnection tcpConnection;
 
     private Player player1;
 
@@ -35,7 +33,6 @@ public class JFrameView extends JFrame implements Runnable {
 
     private Map<FieldCellType, BufferedImage> wallImageMap = new HashMap<>();
     private Map<Directions, BufferedImage> tankDirectionImages = new HashMap<>();
-
 
     private Graphics screenGraphics;
     private TankController tankController;
@@ -94,9 +91,12 @@ public class JFrameView extends JFrame implements Runnable {
     }
 
     private void addKeyListeners() {
-        PlayerController playerController = new PlayerController(player1, field, bulletController, tankController);
+        CommandController commandController = new CommandController();
+        ConsoleCommandController playerController = new ConsoleCommandController(player1, field, bulletController, tankController, commandController);
+        tcpConnection = new TCPConnection(commandController, tankController);
         AnotherPlayerController anotherPlayerController = new AnotherPlayerController(player2, field, bulletController, tankController);
-        this.addKeyListener(playerController);
+       // PlayerConsoleController playerConsoleController = new PlayerConsoleController(player1, field, bulletController, tankController, commandController);
+       // this.addKeyListener(playerConsoleController);
         this.addKeyListener(anotherPlayerController);
     }
 
