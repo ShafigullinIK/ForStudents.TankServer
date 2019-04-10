@@ -66,23 +66,24 @@ public class JFrameView extends JFrame implements Runnable {
 
     private void initImages() {
         screen = new BufferedImage(this.getWidth(), this.getHeight() - upOtstup, BufferedImage.TYPE_3BYTE_BGR);
+        String folder = "images";
         try {
-            BufferedImage tmp = ImageIO.read(new File("images\\breakable_wall.png"));
+            BufferedImage tmp = ImageIO.read(new File(folder + "\\breakable_wall.png"));
             wallImageMap.put(FieldCellType.BREAKABLE_WALL, tmp);
-            tmp = ImageIO.read(new File("images\\unbreakable_wall.png"));
+            tmp = ImageIO.read(new File(folder + "\\unbreakable_wall.png"));
             wallImageMap.put(FieldCellType.UNBREAKABLE_WALL, tmp);
-            tmp = ImageIO.read(new File("images\\water.png"));
+            tmp = ImageIO.read(new File(folder + "\\water.png"));
             wallImageMap.put(FieldCellType.WATER, tmp);
-            tmp = ImageIO.read(new File("images\\background.png"));
+            tmp = ImageIO.read(new File(folder + "\\background.png"));
             wallImageMap.put(FieldCellType.BACKGROUND, tmp);
 
-            tmp = ImageIO.read(new File("images\\tank_up.png"));
+            tmp = ImageIO.read(new File(folder + "\\tank_up.png"));
             tankDirectionImages.put(Directions.UP, tmp);
-            tmp = ImageIO.read(new File("images\\tank_right.png"));
+            tmp = ImageIO.read(new File(folder + "\\tank_right.png"));
             tankDirectionImages.put(Directions.RIGHT, tmp);
-            tmp = ImageIO.read(new File("images\\tank_down.png"));
+            tmp = ImageIO.read(new File(folder + "\\tank_down.png"));
             tankDirectionImages.put(Directions.DOWN, tmp);
-            tmp = ImageIO.read(new File("images\\tank_left.png"));
+            tmp = ImageIO.read(new File(folder + "\\tank_left.png"));
             tankDirectionImages.put(Directions.LEFT, tmp);
 
         } catch (IOException e) {
@@ -143,11 +144,14 @@ public class JFrameView extends JFrame implements Runnable {
 
     private void drawBullets(Graphics imageGraphics){
         ArrayList<Bullet> bullets = bulletController.getBullets();
-        for (Bullet b: bullets) {
-            int x = b.getBulletPoint().getX();
-            int y = b.getBulletPoint().getY();
-            imageGraphics.fillOval(x-3,y-3,6,6);
+        synchronized (bullets){
+            for (Bullet b: bullets) {
+                int x = b.getBulletPoint().getX();
+                int y = b.getBulletPoint().getY();
+                imageGraphics.fillOval(x-3,y-3,6,6);
+            }
         }
+
     }
 
     private void drawTanks(Graphics imageGraphics) {
